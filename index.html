@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script
+    src="https://unpkg.com/react@18/umd/react.development.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    let counter = 0;
+    const root = document.getElementById("root");
+
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("Wow")}>
+        Hello World
+      </h3>
+    );
+    const Btn = () => (
+      <button id="btn" onClick={() => counter++}>
+        Click me
+      </button>
+    );
+    // const h3 = React.createElement(
+    //   "h3",
+    //   { id: "test", onMouseEnter: () => console.log("mouse enter") },
+    //   `Total clicks: ${counter}`
+    // );
+
+    // const btn = React.createElement(
+    //   "button",
+    //   { id: "btn", onClick: () => counter++ },
+    //   "Click me"
+    // );
+    // const container = React.createElement("div", null, [title, btn]);
+    const Container = () => (
+      <div>
+        <Title />
+        <Btn />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>
