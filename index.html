@@ -15,37 +15,71 @@
   ></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    let counter = 0;
-    const root = document.getElementById("root");
+    const rootElement = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootElement);
+    function App() {
+      const [counter, SetCounter] = React.useState(0);
+      const countUp = () => {
+        SetCounter((current) => current + 1);
+      };
 
-    const Title = () => (
-      <h3 id="title" onMouseEnter={() => console.log("Wow")}>
-        Hello World
-      </h3>
-    );
-    const Btn = () => (
-      <button id="btn" onClick={() => counter++}>
-        Click me
-      </button>
-    );
-    // const h3 = React.createElement(
-    //   "h3",
-    //   { id: "test", onMouseEnter: () => console.log("mouse enter") },
-    //   `Total clicks: ${counter}`
-    // );
+      const [minutes, setMinutes] = React.useState(0);
+      const [hours, setHours] = React.useState(0);
 
-    // const btn = React.createElement(
-    //   "button",
-    //   { id: "btn", onClick: () => counter++ },
-    //   "Click me"
-    // );
-    // const container = React.createElement("div", null, [title, btn]);
-    const Container = () => (
-      <div>
-        <Title />
-        <Btn />
-      </div>
-    );
-    ReactDOM.render(<Container />, root);
+      function onMinuteChange(event) {
+        setMinutes(event.target.value);
+        setHours(event.target.value / 60);
+      }
+
+      function onHourChange(event) {
+        setMinutes(event.target.value * 60);
+        setHours(event.target.value);
+      }
+
+      const reset = () => {
+        setMinutes(0);
+        setHours(0);
+      };
+
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button id="btn" onClick={countUp}>
+            Click me
+          </button>
+          <h1>Converter</h1>
+          <div>
+            <label htmlFor="minutes">Minutes </label>
+            <input
+              value={minutes}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onMinuteChange}
+            />
+            <h4>
+              {minutes} minutes is equivalent to {hours} hours
+            </h4>
+          </div>
+          <div>
+            <label htmlFor="hours">Hours </label>
+            <input
+              value={hours}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onHourChange}
+            />
+            <h4>
+              {hours} hours is equivalent to {minutes} minutes
+            </h4>
+          </div>
+          <button id="btn" onClick={reset}>
+            Reset
+          </button>
+        </div>
+      );
+    }
+    root.render(<App />);
   </script>
 </html>
